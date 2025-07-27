@@ -16,7 +16,7 @@ echo [38;2;255;155;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   
                                                                      
 pause
 
-echo
+echo.
 echo ⚠️[43mWARNING:[0m If your name contains \ / : * ? " < > | then the log file may have issues creating
 set /p username="Your name: "
 set /a correct=0 
