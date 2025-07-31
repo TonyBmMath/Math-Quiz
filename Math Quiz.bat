@@ -1,21 +1,36 @@
 @echo off
+chcp 65001 >nul
+if "%1"=="/v" (
+    echo ---------------------------------------
+    echo Math Quiz - Version Guide
+    echo ---------------------------------------
+    echo Description:
+    echo   Test your multiplication skills in a fun quiz format.
+    echo.
+    echo Usage:
+    echo   Math Quiz.bat           Starts the quiz
+    echo   Math Quiz.bat /v     Displays this version guide
+    echo.
+	echo Version: v2.0
+	pause >nul
+)
+:game
 if not exist scores mkdir scores
 cd scores
-chcp 65001 >nul
-setlocal EnableDelayedExpansion
 title Math Quiz
+setlocal EnableDelayedExpansion
 powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Error; $notify.Visible = $true; $notify.ShowBalloonTip(0, 'Math Quiz', 'Dont forget to learn', [System.Windows.Forms.ToolTipIcon]::None)}"
-
 echo.
 echo [38;2;255;0;0m███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗ ██╗   ██╗██╗███████╗
 echo [38;2;255;51;0m████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔═══██╗██║   ██║██║╚══███╔╝
 echo [38;2;255;102;0m██╔████╔██║███████║   ██║   ███████║    ██║   ██║██║   ██║██║  ███╔╝ 
 echo [38;2;255;153;0m██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║▄▄ ██║██║   ██║██║ ███╔╝  
 echo [38;2;255;204;0m██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝╚██████╔╝██║███████╗
-echo [38;2;255;155;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝[0m
+echo [38;2;255;255;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝[0m
                                                                      
 pause
 
+echo Use the /v parameter to show version: Math Quiz.bat /v
 echo.
 echo ⚠️[43mWARNING:[0m If your name contains \ / : * ? " < > | then the log file may have issues creating
 set /p username="Your name: "
@@ -30,7 +45,7 @@ echo [38;2;255;51;0m████╗ ████║██╔══██╗╚�
 echo [38;2;255;102;0m██╔████╔██║███████║   ██║   ███████║    ██║   ██║██║   ██║██║  ███╔╝ 
 echo [38;2;255;153;0m██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║▄▄ ██║██║   ██║██║ ███╔╝  
 echo [38;2;255;204;0m██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝╚██████╔╝██║███████╗
-echo [38;2;255;155;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝
+echo [38;2;255;255;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝
 
 :q1
 echo [31mWhat is 7 × 3?[0m
@@ -74,7 +89,7 @@ if "%ans2%"=="30" (
 echo [33mWhat is 9 × 2?[0m
 set /p ans3="Answer: "
 if "%ans3%"=="" (
-    echo ⚠️ Please enter a value.
+    echo ⚠️ Please enter a value. 
     goto :q3
 )
 if "%ans3%"=="18" (
@@ -90,7 +105,7 @@ if "%ans3%"=="18" (
 )
 
 :q4
-echo [35mWhat is 3 × 8[0m?
+echo [34mWhat is 3 × 8?[0m
 set /p ans4="Answer: "
 if "%ans4%"=="" (
     echo ⚠️ Please enter a value.
@@ -139,27 +154,10 @@ if %percent% leq 25 (
 ) else (
     set rating=🎉 Perfect Score Awesome Work!
 )
-echo 📃Rating:%rating%
-echo [41m➖ %incorrect% [0m !bar_incorrect!   [42m➕ %correct% [0m !bar_correct!
-echo 🧠 Total attempted: %total%
-echo 💾 Log file exported to "%username%'s_scores.csv" . 
-echo 🎉 Thanks for playing!
-powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(0, 'Math Quiz', 'Thanks for learning', [System.Windows.Forms.ToolTipIcon]::None)}"
 
 set "logfile=%username%'s_scores.csv"
-
-for /f "tokens=1-4 delims=/ " %%a in ("%date%") do (
-    set "day=%%a"
-    set "month=%%b"
-    set "year=%%c"
-)
-for /f "tokens=1-2 delims=:." %%a in ("%time%") do (
-    set "hour=%%a"
-    set "min=%%b"
-)
-
 >>"%logfile%" echo ﻿
->>"%logfile%" echo ,,,,,,[%date% %time%] 1's Math Quiz Result
+>>"%logfile%" echo ,,,,,,[%date% %time%] %username%'s Math Quiz Result
 >>"%logfile%" echo 🌟 Rating: %rating%
 >>"%logfile%" echo ,,,Results for each question:
 >>"%logfile%" echo ,Incorrect/Correct
@@ -167,6 +165,12 @@ for /f "tokens=1-2 delims=:." %%a in ("%time%") do (
 >>"%logfile%" echo Question 2,%q2res%
 >>"%logfile%" echo Question 3,%q3res%
 >>"%logfile%" echo Question 4,%q4res%
->>"%logfile%" echo Correct: %correct%,Incorrect: %incorrect%,Accuracy: %percent%,Total: %total%
+>>"%logfile%" echo Correct: %correct%,Incorrect: %incorrect%,Accuracy: %percent%,Total: %total%echo 📃Rating:%rating%
+
+echo [41m➖ %incorrect% [0m !bar_incorrect!   [42m➕ %correct% [0m !bar_correct!
+echo 🧠 Total attempted: %total%
+echo 💾 Log file exported to "%username%'s_scores.csv" . 
+echo 🎉 Thanks for playing!
+powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(0, 'Math Quiz', 'Thanks for learning', [System.Windows.Forms.ToolTipIcon]::None)}"
 
 pause >nul
