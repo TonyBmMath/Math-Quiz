@@ -37,7 +37,7 @@ Create a fun little math quiz app in the Windows terminal using batch scripting.
 - Provides a rating (e.g., “✨ Great Job!” or “🔼 Keep Practicing!”)
 
 #### 💾 Logging Results
-- Creates a log file named after the user (e.g., `Tony's_scores.csv`)
+- Creates a log file named after the user (e.g., `[username]'s_scores.csv`)
 - Logs:
   - Date and time
   - Rating
