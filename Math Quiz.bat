@@ -1,3 +1,5 @@
+:: Math Quiz by Tony
+:: v2.0
 @echo off
 chcp 65001 >nul
 if "%1"=="/v" (
@@ -13,8 +15,8 @@ if "%1"=="/v" (
     echo.
 	echo Version: v2.0
 	pause >nul
+    exit /b
 )
-:game
 if not exist scores mkdir scores
 cd scores
 title Math Quiz
@@ -45,10 +47,10 @@ echo [38;2;255;51;0m████╗ ████║██╔══██╗╚�
 echo [38;2;255;102;0m██╔████╔██║███████║   ██║   ███████║    ██║   ██║██║   ██║██║  ███╔╝ 
 echo [38;2;255;153;0m██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║▄▄ ██║██║   ██║██║ ███╔╝  
 echo [38;2;255;204;0m██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝╚██████╔╝██║███████╗
-echo [38;2;255;255;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝
+echo [38;2;255;255;0m╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝[0m
 
 :q1
-echo [31mWhat is 7 × 3?[0m
+echo [41mQuestion 1:[0m What is 7 × 3?
 set /p ans1="Answer: "
 if "%ans1%"=="" (
     echo ⚠️ Please enter a value.
@@ -67,7 +69,7 @@ if "%ans1%"=="21" (
 )
 
 :q2
-echo [32mWhat is 5 × 6?[0m
+echo [42mQuestion 2:[0m What is 5 × 6?
 set /p ans2="Answer: "
 if "%ans2%"=="" (
     echo ⚠️ Please enter a value.
@@ -86,7 +88,7 @@ if "%ans2%"=="30" (
 )
 
 :q3
-echo [33mWhat is 9 × 2?[0m
+echo [43mQuestion 3:[0m What is 9 × 2?
 set /p ans3="Answer: "
 if "%ans3%"=="" (
     echo ⚠️ Please enter a value. 
@@ -105,7 +107,7 @@ if "%ans3%"=="18" (
 )
 
 :q4
-echo [34mWhat is 3 × 8?[0m
+echo [44mQuestion 4:[0m What is 3 × 8?
 set /p ans4="Answer: "
 if "%ans4%"=="" (
     echo ⚠️ Please enter a value.
@@ -165,12 +167,14 @@ set "logfile=%username%'s_scores.csv"
 >>"%logfile%" echo Question 2,%q2res%
 >>"%logfile%" echo Question 3,%q3res%
 >>"%logfile%" echo Question 4,%q4res%
->>"%logfile%" echo Correct: %correct%,Incorrect: %incorrect%,Accuracy: %percent%,Total: %total%echo 📃Rating:%rating%
+>>"%logfile%" echo Correct: %correct%,Incorrect: %incorrect%,Accuracy: %percent%,Total: %total%,📃Rating:%rating%
 
 echo [41m➖ %incorrect% [0m !bar_incorrect!   [42m➕ %correct% [0m !bar_correct!
 echo 🧠 Total attempted: %total%
 echo 💾 Log file exported to "%username%'s_scores.csv" . 
 echo 🎉 Thanks for playing!
 powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(0, 'Math Quiz', 'Thanks for learning', [System.Windows.Forms.ToolTipIcon]::None)}"
-
+set /p openfile="Open file? [y/n]"
+if "%openfile%"=="y" explorer %cd%
+if "%openfile%"=="n" break
 pause >nul

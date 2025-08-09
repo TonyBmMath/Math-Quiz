@@ -33,7 +33,7 @@ pause
 
 echo Use the /v parameter to show version: Math Quiz.bat /v
 echo.
-echo ⚠️WARNING:If your name contains \ / : * ? " < > | then the log file may have issues creating
+echo ⚠️WARNING: If your name contains \ / : * ? " < > | then the log file may have issues creating
 set /p username="Your name: "
 set /a correct=0 
 set /a incorrect=0
@@ -173,5 +173,8 @@ echo 🧠 Total attempted: %total%
 echo 💾 Log file exported to "%username%'s_scores.csv" . 
 echo 🎉 Thanks for playing!
 powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(0, 'Math Quiz', 'Thanks for learning', [System.Windows.Forms.ToolTipIcon]::None)}"
+set /p openfile="Open file? [y/n]"
+if "%openfile%"=="y" explorer %cd%
+if "%openfile%"=="n" break
 
 pause >nul
