@@ -3,7 +3,7 @@ Language: batch (perfect for windows users, already the most popular operating s
 
 Note: lines starting with *::* are just comments to amke you understand, feel free to remove them
 ⚠️WARNING: Prevent overlapping enviroment variables
-**Add to start: (replace "[your ascii banner here]" with ascii banner** (create it using this website: [Text to ASCII art generator (short as taag)](patorjk.com/software/taag))
+### Add to start: (replace "[your ascii banner here]" with ascii banner (create it using this website: [Text to ASCII art generator (short as taag)](patorjk.com/software/taag))
 ```batch
 @echo off
 chcp 65001 >nul
@@ -33,7 +33,7 @@ set /a correct=0
 set /a incorrect=0
 ```
 
-**Fill-in-the-blank**
+### Fill-in-the-blank
 ```batch
 :question
 echo [41mQuestion 1:[0m What is 7 × 3?
@@ -54,7 +54,7 @@ if "%ans1%"=="21" (
 )
 ```
 
-**Multiple-choice**
+### Multiple-choice=
 ```batch
 :question
 echo [41mQuestion 1:[0m What is 7 × 3?
@@ -77,7 +77,7 @@ if "%ans1%"=="4" (
 )
 ```
 
-**Match**
+### Match
 
 IMPORTANT: add setlocal EnableDelayedExpansion before the question
 ```batch
@@ -100,7 +100,7 @@ set match1=!errorlevel!
 if !match1! equ 1 set /a correct+=1
 ```
 
-**Categorize**
+### Categorize
 ```batch
 setlocal EnableDelayedExpansion
 
@@ -129,7 +129,7 @@ if "!q1!"=="3" (
 )
 ```
 
-**Labeling**
+### Labeling
 ```batch
 setlocal EnableDelayedExpansion
 
@@ -151,7 +151,7 @@ set label1=!errorlevel!
 if "!label1!"=="3" set /a correct+=1
 ```
 
-**Add to end:**
+### Add to end:
 ```batch
 echo %username%'s results:
 set /a total=correct + incorrect
