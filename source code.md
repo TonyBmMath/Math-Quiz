@@ -80,7 +80,7 @@ if "%ans1%"=="4" (
 
 ### Match
 
-IMPORTANT: add setlocal EnableDelayedExpansion before the question
+IMPORTANT: add setlocal EnableDelayedExpansion before the questions after these
 ```batch
 setlocal EnableDelayedExpansion
 
