@@ -3,7 +3,7 @@ Language: batch (perfect for windows users, already the most popular operating s
 
 Note: lines starting with *::* are just comments to amke you understand, feel free to remove them
 ⚠️WARNING: Prevent overlapping enviroment variables
-### Add to start: (replace "[your ascii banner here]" with ascii banner (create it using this website: [Text to ASCII art generator (short as taag)](patorjk.com/software/taag))
+### Add to start: (replace "[your ascii banner here]" with ascii banner (create it using this website: [Text to ASCII art generator (short as taag)](https://patorjk.com/software/taag)) and remeber to add echo lines for each
 ```batch
 @echo off
 chcp 65001 >nul
@@ -28,6 +28,7 @@ cd scores
 title Math Quiz
 setlocal EnableDelayedExpansion
 echo ⚠️[43mWARNING:[0m If your name contains \ / : * ? " < > | then the log file may have issues creating
+echo [your ascii banner here]
 set /p username="Your name: "
 set /a correct=0 
 set /a incorrect=0
