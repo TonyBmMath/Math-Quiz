@@ -1,5 +1,3 @@
-:: Math Quiz by Tony
-:: v2.0
 @echo off
 chcp 65001 >nul
 if "%1"=="/v" (
