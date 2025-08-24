@@ -1,7 +1,7 @@
 ## Here's the source code if you want to make your own quiz!
 Language: batch (perfect for windows users, already the most popular operating system)
 
-Note: lines starting with *::* are just comments to amke you understand, feel free to remove them
+Note: lines starting with *::* are just comments to make you understand, feel free to remove them
 ⚠️WARNING: Prevent overlapping enviroment variables
 ### Add to start: (replace "[your ascii banner here]" with ascii banner (create it using this website: [Text to ASCII art generator (short as taag)](https://patorjk.com/software/taag)) and remeber to add echo lines for each
 ```batch
@@ -200,6 +200,160 @@ if "%openfile%"=="n" break
 pause >nul
 ```
 
+## Full example:
+```batch
+@echo off
+chcp 65001 >nul
+:: Quiz Engine - Math Edition
+:: Author: Tony BM
+:: Version: v2.0
+:: Description: Interactive offline math quiz with logging and feedback
+
+:: Version Guide
+if "%1"=="/v" (
+    echo ---------------------------------------
+    echo Quiz - Version Guide
+    echo ---------------------------------------
+    echo Description:
+    echo   Test your math skills in a fun quiz format.
+    echo.
+    echo Usage:
+    echo   Quiz.bat           Starts the quiz
+    echo   Quiz.bat /v        Displays this version guide
+    echo.
+    echo Version: v2.0
+    pause >nul
+    exit /b
+)
+
+:: Setup
+if not exist scores mkdir scores
+cd scores
+title Math Quiz
+setlocal EnableDelayedExpansion
+echo ⚠️[43mWARNING:[0m If your name contains \ / : * ? " < > | then the log file may not be created properly.
+echo [your ascii banner here]
+set /p username="Your name: "
+set /a correct=0
+set /a incorrect=0
+
+:: Question 1 - Fill-in-the-Blank
+echo [41mQuestion 1:[0m What is 7 × 3?
+set /p ans1="Answer: "
+if "%ans1%"=="" (
+    echo ⚠️ Please enter a value.
+    goto :q1
+)
+if "%ans1%"=="21" (
+    echo ✅ Correct!
+    set /a correct+=1
+    set q1res=✅
+) else (
+    echo ❌ Incorrect!
+    set /a incorrect+=1
+    set q1res=❌
+)
+
+:: Question 2 - Multiple Choice
+echo [41mQuestion 2:[0m What is 12 ÷ 4?
+echo 1) 2
+echo 2) 3
+echo 3) 4
+echo 4) 6
+echo 5) 8
+choice /c 12345 /n /m "Answer: "
+set ans2=%errorlevel%
+if "%ans2%"=="2" (
+    echo ✅ Correct!
+    set /a correct+=1
+    set q2res=✅
+) else (
+    echo ❌ Incorrect!
+    set /a incorrect+=1
+    set q2res=❌
+)
+
+:: Question 3 - Categorization
+echo [41mQuestion 3:[0m What type of operation is 9 + 6?
+echo A) Addition
+echo S) Subtraction
+echo M) Multiplication
+choice /c ASM /n /m "Category: "
+set q3=%errorlevel%
+if "%q3%"=="1" (
+    echo ✅ Correct!
+    set /a correct+=1
+    set q3res=✅
+) else (
+    echo ❌ Incorrect!
+    set /a incorrect+=1
+    set q3res=❌
+)
+
+:: Question 4 - Labeling
+echo [41mQuestion 4:[0m Label the first number in 8 + 4 = 12
+echo 1) 6
+echo 2) 7
+echo 3) 8
+echo 4) 9
+choice /c 1234 /n /m "Choose: "
+set label1=%errorlevel%
+if "%label1%"=="3" (
+    echo ✅ Correct!
+    set /a correct+=1
+    set q4res=✅
+) else (
+    echo ❌ Incorrect!
+    set /a incorrect+=1
+    set q4res=❌
+)
+
+:: Summary
+echo %username%'s results:
+set /a total=correct + incorrect
+echo 🔢 Quiz Summary:
+
+if %total%==0 (
+    echo 📊 Accuracy: N/A (No questions attempted)
+) else (
+    set /a percent=correct*100/total
+    echo 📊 Accuracy: %percent%%
+)
+
+if %percent% leq 25 (
+    set rating=🔼 Keep Practicing!
+) else if %percent% leq 50 (
+    set rating=☑️ Getting There!
+) else if %percent% leq 75 (
+    set rating=✅ Almost Solid!
+) else if %percent% lss 100 (
+    set rating=✨ Great Job!
+) else (
+    set rating=🎉 Perfect Score Awesome Work!
+)
+
+:: Logging
+set "logfile=%username%'s_scores.csv"
+>>"%logfile%" echo ﻿,,,,,,[%date% %time%] %username%'s Math Quiz Result
+>>"%logfile%" echo 🌟 Rating: %rating%
+>>"%logfile%" echo ,,,Results for each question:
+>>"%logfile%" echo ,Incorrect/Correct
+>>"%logfile%" echo Question 1,%q1res%
+>>"%logfile%" echo Question 2,%q2res%
+>>"%logfile%" echo Question 3,%q3res%
+>>"%logfile%" echo Question 4,%q4res%
+>>"%logfile%" echo Correct: %correct%,Incorrect: %incorrect%,Accuracy: %percent%,Total: %total%,📃Rating:%rating%
+
+echo [41m➖ %incorrect% [0m   [42m➕ %correct% [0m
+echo 🧠 Total attempted: %total%
+echo 💾 Log file exported to "%username%'s_scores.csv"
+echo 🎉 Thanks for playing!
+set /p openfile="Open file? [y/n] "
+if /i "%openfile%"=="y" explorer "%cd%\%username%'s_scores.csv"
+pause >nul
+```
+
+## Benefits and Personal Credits
 🎮 Offline Math Quiz Engine — Built in Batch
 ✅ No Ads | 💾 Local Logs | 🧠 Smart Feedback
 🌐 Connect with us:
