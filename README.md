@@ -56,4 +56,4 @@ Create a fun little math quiz app in the Windows terminal using batch scripting.
 - Motivational feedback + emoji-powered progress bar 🎯
 
 ---
-quizziz will be shocked
+quizziz will be shocked )joke(
